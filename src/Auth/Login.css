@@ -1,59 +1,60 @@
-.signup-container{
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.17);
+.login-container {
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.17);
 }
-.signup-row {
+
+.login-row {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-  
-  .signup-form {
+}
+
+.login-form {
     width: 130%;
     max-width: 500px;
     padding: 30px;
     background-color: #ffffff;
-  }
-  
-  .signup-img {
+}
+
+.login-img {
     width: 100%;
     height: 350%;
     object-fit: cover;
     border-radius: 8px;
-  }
-  
-  .right-part {
-    margin-right: 20px;
-  }
-  
-  .left-part {
+}
+
+.right-part {
     margin-left: 20px;
-  }
-  
-  .signup-form h2 {
+}
+
+.left-part {
+    margin-right: 20px;
+}
+
+.form-heading {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333333;
-  }
-  
-  .signup-form label {
+}
+
+.login-form label {
     display: block;
-    font-size: 16px; 
-    margin-bottom: 12px; 
+    font-size: 16px;
+    margin-bottom: 12px;
     color: #333333;
-  }
-  
-  .signup-form input {
+}
+
+.login-form input {
     width: 100%;
-    padding: 12px; 
-    margin-bottom: 20px; 
+    padding: 12px;
+    margin-bottom: 20px;
     border: 1px solid #ced4da;
     border-radius: 4px;
     box-sizing: border-box;
-  }
-  
-  .signup-form button {
+}
+
+.login-form button {
     width: 100%;
     padding: 12px;
     background-color: #007bff;
@@ -61,34 +62,45 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .signup-form button:hover {
+}
+
+.login-form button:hover {
     background-color: #0056b3;
-  }
-  
-  .wave{
-    position: fixed; 
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
+}
+
+.wave {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
     z-index: -1;
-  }
-  .error-message {
+}
+
+.error-message {
     color: #ff0000;
     margin-top: 10px;
     background-color: #ffecec;
     padding: 10px;
     border: 1px solid #ffb3b3;
     border-radius: 5px;
-  }
-  
-  .login-message {
+}
+
+.signup-message {
     color: #0077ff;
     margin-top: 10px;
     background-color: #ecffff;
     padding: 10px;
     border: 1px solid #64d1e4;
     border-radius: 5px;
+}
+
+.Forgot-Password {
+    color: #0077ff;
+    margin-top: 10px;
+    background-color: #ecffff;
+    padding: 10px;
+    border: 1px solid #64d1e4;
+    border-radius: 5px;
+    align-items: center;
   }
