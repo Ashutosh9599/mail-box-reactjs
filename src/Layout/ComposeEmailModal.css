@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 50px; 
+  }
+  
+  .popup-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 900px; 
+  }
+  
+  .popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .popup-header .font-weight-bold {
+    font-size: 18px;
+  }
+  
+  .close-icon {
+    cursor: pointer;
+  }
+  
+  .popup-body .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .popup-body label {
+    font-weight: bold;
+  }
+  
+  .popup-footer {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+  

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Row, Col, Form, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { loginSuccess, loginFailure } from '../Reducer/authSlice';
 import img1 from '../img/right.jpg';
 import './Login.css';
 
@@ -9,6 +11,7 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,8 +23,6 @@ function LoginPage() {
         }
 
         try {
-            // Send request to your login API
-            // Replace this with your actual login API endpoint
             const response = await fetch(
                 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD56YNYrpiTJXSOIMFIbA23CwnQQytqfpY',
                 {
@@ -41,15 +42,16 @@ function LoginPage() {
                 throw new Error(errorData.error.message);
             }
 
-            // Login successful
             setError(null);
-            // Clear input fields
+            const userData = await response.json();
+            console.log(userData);
+            dispatch(loginSuccess(userData));
             setEmail('');
             setPassword('');
-            // Redirect user to dashboard or perform other actions
             navigate('/welcome');
         } catch (error) {
             setError(error.message);
+            dispatch(loginFailure(error.message));
         }
     };
 
@@ -62,10 +64,10 @@ function LoginPage() {
             </div>
             <div className='login-container'>
                 <Row className="login-row">
-                    <Col md={6} className="left-part">
+                    <Col md={6} className="d-flex align-items-center justify-content-center">
                         <img src={img1} alt="Login" className="login-img" />
                     </Col>
-                    <Col md={6} className="right-part">
+                    <Col md={6} className="d-flex align-items-center justify-content-center">
                         <Form className="login-form" onSubmit={handleSubmit}>
                             <h2 className="form-heading">Login</h2>
                             <Form.Group controlId="formBasicEmail">
