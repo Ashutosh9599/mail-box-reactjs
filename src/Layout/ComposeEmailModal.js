@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,21 +12,16 @@ const ComposeEmailPopup = ({ onClose }) => {
   const [subject, setSubject] = useState('');
   const [editorState, setEditorState] = useState(null);
   const currentUserEmail = useSelector((state) => state.auth.user?.email);
-  const isMounted = useRef(true);
-
-  useEffect(() => {
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
 
   const handleSubmit = async () => {
     try {
       const emailData = {
         sender: currentUserEmail,
-        reciever: email,
+        receiver: email,
         subject,
         message: editorState?.getCurrentContent().getPlainText() || '',
+        timestamp: new Date().toISOString(),
+
       };
 
       const sanitizedSenderEmail = currentUserEmail.replace(/[@.]/g, '');
@@ -44,18 +39,16 @@ const ComposeEmailPopup = ({ onClose }) => {
         throw new Error('Failed to save in sentbox');
       }
 
-      if (isMounted.current) {
-        const inboxResponse = await fetch(`https://mail-box-cf1f8-default-rtdb.firebaseio.com/${sanitizedRecipientEmail}/inbox.json`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(emailData),
-        });
+      const inboxResponse = await fetch(`https://mail-box-cf1f8-default-rtdb.firebaseio.com/${sanitizedRecipientEmail}/inbox.json`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailData),
+      });
 
-        if (!inboxResponse.ok) {
-          throw new Error('Failed to save in inbox');
-        }
+      if (!inboxResponse.ok) {
+        throw new Error('Failed to save in inbox');
       }
 
       onClose();
@@ -98,7 +91,7 @@ const ComposeEmailPopup = ({ onClose }) => {
             <label htmlFor="message">Message:</label>
             <Editor
               editorState={editorState}
-              onEditorStateChange={(state) => isMounted.current && setEditorState(state)}
+              onEditorStateChange={setEditorState}
             />
           </div>
         </div>
