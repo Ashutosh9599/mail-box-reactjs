@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setReceivedMails } from '../Reducer/MailSlice';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Inbox.css';
 
 function Inbox() {
@@ -10,6 +12,7 @@ function Inbox() {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredEmails, setFilteredEmails] = useState([]);
+    const [starred, setStarred] = useState([]);
 
     const fetchReceivedEmails = useCallback(async () => {
         try {
@@ -22,15 +25,19 @@ function Inbox() {
             console.log('Fetched Data:', data);
 
             if (data) {
-                const email = {
-                    sender: data.sender,
-                    receiver: data.receiver,
-                    subject: data.subject,
-                    message: data.message,
-                    timestamp: data.timestamp
-                };
-                console.log('Mapped Emails:', email);
-                dispatch(setReceivedMails([email]));
+                const emails = Object.keys(data).map(key => {
+                    const emailData = data[key];
+                    return {
+                        id: key,
+                        sender: emailData.sender,
+                        receiver: emailData.receiver,
+                        subject: emailData.subject,
+                        message: emailData.message,
+                        timestamp: emailData.timestamp
+                    };
+                });
+                console.log('Mapped Emails:', emails);
+                dispatch(setReceivedMails(emails));
             }
         } catch (error) {
             console.error('Error fetching received emails:', error);
@@ -54,33 +61,52 @@ function Inbox() {
         }
     }, [searchQuery, receivedMails]);
 
-    const handleEmailClick = (emailId) => {
-        console.log('Viewing email:', emailId);
+    const toggleStar = (index) => {
+        const newStarred = [...starred];
+        newStarred[index] = !newStarred[index];
+        setStarred(newStarred);
     };
 
+
     return (
-        <div className='inbox-container'>
-            <div className="inbox-header">
-                <h2>Inbox</h2>
-                <div className="search-bar">
-                    <input
-                        type="text"
-                        placeholder="Search emails..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col">
+                    <div className="inbox-container">
+                        <h2>Inbox</h2>
+                        <div className="action-bar">
+                            <button className="delete-button">Delete</button>
+                            <div className="search-bar">
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)} />
+                                <button type="button">Search</button>
+                            </div>
+                        </div>
+                        <div className="table-responsive">
+                            <table className="table table-hover">
+                                <tbody>
+                                    {filteredEmails.map((email, index) => (
+                                        <tr key={email.id}>
+                                            <td className="action"><input type="checkbox" /></td>
+                                            <td className="name">
+                                                <span className="star-icon" onClick={() => toggleStar(index)}>
+                                                    <FontAwesomeIcon icon={faStar} style={{ color: starred[index] ? 'gold' : 'black' }} />
+                                                </span>
+                                                {email.sender}
+                                            </td>
+                                            <td className="subject">{email.subject}</td>
+                                            <td className="time">{email.timestamp}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <ul className="email-list">
-                {filteredEmails.map((email, index) => (
-                    <li key={index} className="email-item" onClick={() => handleEmailClick(email.id)}>
-                        {email.sender}
-                        {email.subject}
-                        {email.message ? email.message.substring(0, 100) : ''}
-                        {email.timestamp}
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 }

@@ -1,98 +1,24 @@
-.navbar {
+.col-3 {
   position: fixed;
-  top: 0;
   left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.navbar-brand {
-  color: #ffffff;
-  font-size: 18px; 
-  margin-right: 10px; 
-  padding: 10px; 
-}
-
-.logout-button {
-  color: #ffffff;
-  border: 1px;
-  background-color: crimson;
-  margin-right: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px; 
-}
-
-.logout-button:hover {
-  background-color: rgb(160, 16, 45);
-}
-
-#sidebar {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  height: calc(100% - 56px);
+  top: 62px;
+  bottom: 0;
   width: 200px;
-  padding-top: 10px;
-  background-color: #f8f9fa;
-  border-right: 1px solid #dee2e6;
-  z-index: 999; 
   overflow-y: auto;
 }
 
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  height: 100%;
-  padding-bottom: 10px;
-  overflow-x: hidden;
-}
-
-.compose-button {
-  margin-top: 15px; 
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 8px;
-  background-color: rgb(27, 109, 177); 
-}
-
-main {
-  padding: 15px;
-  margin-top: 70px;
+.row {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  margin-left: 200px;
+  margin-top: 100px;
 }
 
-.content {
-  margin-left:180px;
-  width: 600%;
-  max-width: 1900px; 
-}
-
-.nav-item.active {
-  background-color: #e9ecef;
-}
-
-.welcome-title {
-  color: #ffffff;
-  font-size: 24px;
-  margin-right: auto;
-}
-.inbox-button {
-  margin-top: 15px; 
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 8px;
-  background-color: #007bff; 
-}
-
-.inbox-button:hover {
-  background-color: #0056b3;
-}
-
-.nav-item.active .inbox-button {
-  background-color: #e9ecef; 
+.col {
+  flex: 1;
+  max-width: none;
+  padding-top: 20px;
+  overflow-y: auto;
+  margin-left: -121px;
+  margin-top: -90px;
 }
