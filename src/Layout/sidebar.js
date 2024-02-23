@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faInbox } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
 import './Sidebar.css';
 
 function Sidebar({ onComposeClick, onInboxClick }) {
+  const currentUserEmail = useSelector((state) => state.auth.user?.email);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    const fetchUnreadCount = async () => {
+      try {
+        const sanitizedRecipientEmail = currentUserEmail.replace(/[@.]/g, '');
+        const response = await fetch(`https://mail-box-cf1f8-default-rtdb.firebaseio.com/${sanitizedRecipientEmail}/inbox.json`);
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch unread count');
+        }
+        const data = await response.json();
+        let count = 0;
+        for (const emailId in data) {
+          if (!data[emailId].read) {
+            count++;
+          }
+        }
+        setUnreadCount(count);
+      } catch (error) {
+        console.error('Error fetching unread count:', error);
+      }
+    };
+
+    fetchUnreadCount();
+  }, []);
+
   const handleComposeClick = () => {
     onComposeClick();
   };
@@ -22,6 +51,7 @@ function Sidebar({ onComposeClick, onInboxClick }) {
         <button className="btn btn-light" onClick={handleInboxClick}>
           <FontAwesomeIcon icon={faInbox} className="mr-2" />
           Inbox
+          {unreadCount > 0 && <span className="unread-count">{unreadCount}</span>}
         </button>
       </div>
     </div>

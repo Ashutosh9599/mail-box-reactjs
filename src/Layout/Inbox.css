@@ -11,19 +11,6 @@
   align-items: center;
 }
 
-.delete-button {
-  padding: 10px 20px;
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.delete-button:hover {
-  background-color: #c82333;
-}
-
 .search-bar {
   margin-right: 10px;
 }
@@ -61,4 +48,13 @@
 
 .star-icon.clicked {
   color: gold; 
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px; 
 }

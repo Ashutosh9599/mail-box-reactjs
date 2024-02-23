@@ -40,6 +40,7 @@ function ComposeEmail({ onClose }) {
                 subject,
                 message: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
                 timestamp: getCurrentIndianTime(),
+                read: false,
             };
 
             const sanitizedSenderEmail = currentUserEmail.replace(/[@.]/g, '');
