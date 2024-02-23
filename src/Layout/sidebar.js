@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faInbox } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faInbox, faPaperPlane } from '@fortawesome/free-solid-svg-icons'; 
 import { useSelector } from 'react-redux';
 import './Sidebar.css';
 
-function Sidebar({ onComposeClick, onInboxClick }) {
+function Sidebar({ onComposeClick, onInboxClick, onSentClick }) {
   const currentUserEmail = useSelector((state) => state.auth.user?.email);
   const [unreadCount, setUnreadCount] = useState(0);
 
@@ -41,6 +41,9 @@ function Sidebar({ onComposeClick, onInboxClick }) {
     onInboxClick();
   };
 
+  const handleSentClick = () => {
+    onSentClick();
+  };
   return (
     <div className="sidebar">
       <div className="d-flex flex-column align-items-center p-3">
@@ -52,6 +55,11 @@ function Sidebar({ onComposeClick, onInboxClick }) {
           <FontAwesomeIcon icon={faInbox} className="mr-2" />
           Inbox
           {unreadCount > 0 && <span className="unread-count">{unreadCount}</span>}
+        </button>
+        <div style={{ marginBottom: '20px' }}></div> 
+        <button className="btn btn-light" onClick={handleSentClick}>
+          <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
+          Sent
         </button>
       </div>
     </div>
