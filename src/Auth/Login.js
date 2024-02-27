@@ -16,7 +16,6 @@ function LoginPage() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Basic validation
         if (!email || !password) {
             setError('Please fill in all fields.');
             return;

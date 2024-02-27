@@ -13,14 +13,12 @@ function SignupPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Basic validation
     if (!email || !password || password !== confirmPassword) {
       setError('Please fill in all fields correctly.');
       return;
     }
 
     try {
-      // Send request to Google Identity Toolkit API for login
       const response = await fetch(
         `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD56YNYrpiTJXSOIMFIbA23CwnQQytqfpY`,
         {
@@ -41,13 +39,10 @@ function SignupPage() {
         throw new Error(errorData.error.message);
       }
 
-      // Login successful
       setError(null);
-      // Clear input fields
       setEmail('');
       setPassword('');
       setConfirmPassword('');
-      // Redirect user to dashboard or perform other actions
     } catch (error) {
       setError(error.message);
     }
